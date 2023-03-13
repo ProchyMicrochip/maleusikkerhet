@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:måleusikkerhet.ViewModels"
+        xmlns:views="clr-namespace:måleusikkerhet.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="måleusikkerhet.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="måleusikkerhet">
+    <Window.DataContext>
+        <vm:MainWindowViewModel></vm:MainWindowViewModel>
+    </Window.DataContext>
+    <TabControl>
+        <TabItem Header="MainWindow">
+            <views:MainView></views:MainView>
+        </TabItem>
+        <TabItem Header="Add Device">
+            <views:AddDeviceForm></views:AddDeviceForm>
+        </TabItem>
+    </TabControl>
+</Window>
