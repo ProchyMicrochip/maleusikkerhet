@@ -1,4 +1,9 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=effef816_002D9765_002D4f17_002Daaf7_002Dac8b1297de2f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TrueTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::883698CF-123D-4F30-A8AA-0D3000B56281::net6.0::måleusikkerhet.Test.UnitTest1.TrueTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=69e6b8fb_002D397c_002D4302_002D9466_002D936facd0abe6_0023m_00E5leusikkerhet_002EiOS/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=b61f9e88_002D4765_002D4776_002Da542_002Dee6981450bdb_0023m_00E5leusikkerhet_002EWeb/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=c23e110f_002Db8c7_002D4142_002Da13d_002D303ea71149a1_0023m_00E5leusikkerhet_002EAndroid/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

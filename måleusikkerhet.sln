@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "måleusikkerhet.iOS", "mål
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "måleusikkerhet.Web", "måleusikkerhet\måleusikkerhet.Web\måleusikkerhet.Web.csproj", "{B61F9E88-4765-4776-A542-EE6981450BDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "måleusikkerhet.Test", "måleusikkerhet.Test\måleusikkerhet.Test.csproj", "{883698CF-123D-4F30-A8AA-0D3000B56281}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,5 +42,9 @@ Global
 		{B61F9E88-4765-4776-A542-EE6981450BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B61F9E88-4765-4776-A542-EE6981450BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B61F9E88-4765-4776-A542-EE6981450BDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{883698CF-123D-4F30-A8AA-0D3000B56281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{883698CF-123D-4F30-A8AA-0D3000B56281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{883698CF-123D-4F30-A8AA-0D3000B56281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{883698CF-123D-4F30-A8AA-0D3000B56281}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
