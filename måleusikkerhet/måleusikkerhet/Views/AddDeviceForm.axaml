@@ -11,12 +11,25 @@
     <StackPanel>
         <Grid RowDefinitions="*" ColumnDefinitions="Auto,*">
             <Label Margin="10" VerticalContentAlignment="Center">Name</Label>
-            <TextBox Grid.Column="1" Margin="10"></TextBox>
+            <TextBox Grid.Column="1" Margin="10" Text="{Binding Name}"></TextBox>
         </Grid>
         <Button Click="LoadImage">Upload Image</Button>
         <Image Width="128" Height="128" Source="{Binding Image}"></Image>
         <Viewbox>
             
         </Viewbox>
+        <ComboBox Items="{Binding SupportedTypes}" SelectedIndex="0" SelectedItem="{Binding SelectedItem}"/>
+        <Grid RowDefinitions="*" ColumnDefinitions="Auto,*">
+            <Label Margin="10" VerticalContentAlignment="Center">Resolution</Label>
+            <NumericUpDown Grid.Column="1" Margin="10" Value="{Binding Resolution}" ShowButtonSpinner="False"></NumericUpDown>
+        </Grid>
+        <DataGrid Name="MyDataGrid" Items="{Binding AttributesList}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Max. Range" Binding="{Binding Range}"/>
+                <DataGridTextColumn Header="% from Range" Binding="{Binding RangeError}"/>
+                <DataGridTextColumn Header="Digits" Binding="{Binding Digits}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="Button_OnClick">Save</Button>
     </StackPanel>
 </UserControl>

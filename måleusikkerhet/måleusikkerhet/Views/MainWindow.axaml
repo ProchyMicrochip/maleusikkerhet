@@ -18,5 +18,8 @@
         <TabItem Header="Add Device">
             <views:AddDeviceForm></views:AddDeviceForm>
         </TabItem>
+        <TabItem Header="Devices">
+            <views:DeviceView></views:DeviceView>
+        </TabItem>
     </TabControl>
 </Window>

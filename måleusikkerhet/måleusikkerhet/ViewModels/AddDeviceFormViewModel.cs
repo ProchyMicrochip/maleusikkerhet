@@ -1,19 +1,47 @@
-﻿using Avalonia;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
+using måleusikkerhet.Bases;
+using måleusikkerhet.Database;
+using måleusikkerhet.Infrastructure;
 using ReactiveUI;
+using MemoryStream = System.IO.MemoryStream;
 
 namespace måleusikkerhet.ViewModels;
 
 public class AddDeviceFormViewModel : ViewModelBase
 {
     private Bitmap? _image;
+    private ObservableCollection<DigitalAttributes> _attributesList = new();
 
     public Bitmap? Image
     {
         get => _image;
         set => this.RaiseAndSetIfChanged(ref _image, value);
     }
+
+    public static List<string> SupportedTypes => Enum.GetNames(typeof(MeasurementType)).ToList();
+
+    public ObservableCollection<DigitalAttributes> AttributesList
+    {
+        get => _attributesList;
+        set => this.RaiseAndSetIfChanged(ref _attributesList, value);
+    }
+
+    public double Resolution { get; set; }
+    public string? Name { get; set; }
+    public MeasurementType SelectedItem { get; set; }
+
+    public AddDeviceFormViewModel()
+    {
+        AttributesList.Add(new DigitalAttributes());
+    }
+    
 
     public async void LoadImage()
     {
@@ -23,5 +51,20 @@ public class AddDeviceFormViewModel : ViewModelBase
         var bitmap = new Bitmap(file[0]);
         bitmap = bitmap.CreateScaledBitmap(new PixelSize(128, 128));
         Image = bitmap;
+    }
+
+    public void Save()
+    {
+        if (Name == null || Image == null) return;
+        using var ms = new MemoryStream();
+        Image.Save(ms);
+        var newDevice = new Digital(Name)
+        {
+            Image = new ImageDb { ImageData = ms.ToArray() }, Resolution = Resolution, MeasumentType = SelectedItem,
+            Ranges = AttributesList.OrderBy(x => x.Range).ToList()
+        };
+        var db = new DeviceDb();
+        db.DigitalDev.Add(newDevice);
+        db.SaveChanges();
     }
 }

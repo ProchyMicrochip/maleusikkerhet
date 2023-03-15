@@ -27,7 +27,15 @@ namespace måleusikkerhet.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MeasumentType")
+                        .HasColumnType("integer");
+
                     b.HasKey("Name");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("AnalogDev");
                 });
@@ -37,10 +45,18 @@ namespace måleusikkerhet.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MeasumentType")
+                        .HasColumnType("integer");
+
                     b.Property<double?>("Resolution")
                         .HasColumnType("double precision");
 
                     b.HasKey("Name");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("DigitalDev");
                 });
@@ -50,9 +66,33 @@ namespace måleusikkerhet.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MeasumentType")
+                        .HasColumnType("integer");
+
                     b.HasKey("Name");
 
+                    b.HasIndex("ImageId");
+
                     b.ToTable("PreciseDev");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Database.ImageDb", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("Id"));
+
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("bytea");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImageDb");
                 });
 
             modelBuilder.Entity("måleusikkerhet.Infrastructure.DigitalAttributes", b =>
@@ -80,6 +120,33 @@ namespace måleusikkerhet.Migrations
                     b.HasIndex("DigitalName");
 
                     b.ToTable("DigitalAttributes");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Bases.Analog", b =>
+                {
+                    b.HasOne("måleusikkerhet.Database.ImageDb", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Bases.Digital", b =>
+                {
+                    b.HasOne("måleusikkerhet.Database.ImageDb", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Bases.Precise", b =>
+                {
+                    b.HasOne("måleusikkerhet.Database.ImageDb", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("måleusikkerhet.Infrastructure.DigitalAttributes", b =>

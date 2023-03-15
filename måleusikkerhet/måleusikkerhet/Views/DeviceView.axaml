@@ -1,0 +1,18 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:måleusikkerhet.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="måleusikkerhet.Views.DeviceView">
+    <UserControl.DataContext>
+        <viewModels:DeviceViewModel></viewModels:DeviceViewModel>
+    </UserControl.DataContext>
+    <Grid RowDefinitions="Auto,*">
+        <Grid ColumnDefinitions="*,*,*,*,*,*">
+            
+        </Grid>
+        <WrapPanel Grid.Row="1" Name="WrapPanel">
+        </WrapPanel>
+    </Grid>
+</UserControl>
