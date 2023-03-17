@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:devices="clr-namespace:måleusikkerhet.ViewModels.NewDeviceModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="måleusikkerhet.Views.NewDevices.DigitalView">
+    <UserControl.DataContext>
+        <devices:DigitalViewModel></devices:DigitalViewModel>
+    </UserControl.DataContext>
+    <StackPanel>
+        <Grid RowDefinitions="*" ColumnDefinitions="Auto,*">
+            <Label Margin="10" VerticalContentAlignment="Center">Resolution</Label>
+            <NumericUpDown Grid.Column="1" Margin="10" Value="{Binding Resolution}" ShowButtonSpinner="False"></NumericUpDown>
+        </Grid>
+        <DataGrid Name="MyDataGrid" Items="{Binding AttributesList}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Max. Range" Binding="{Binding Range}" />
+                <DataGridTextColumn Header="% from Range" Binding="{Binding RangeError}" />
+                <DataGridTextColumn Header="Digits" Binding="{Binding Digits}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="Button_OnClick">Save</Button>
+    </StackPanel>
+</UserControl>

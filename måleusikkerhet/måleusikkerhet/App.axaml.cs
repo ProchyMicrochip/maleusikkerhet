@@ -1,8 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using måleusikkerhet.Services;
 using måleusikkerhet.ViewModels;
 using måleusikkerhet.Views;
+using Splat;
 
 namespace måleusikkerhet
 {
@@ -11,6 +13,7 @@ namespace måleusikkerhet
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+            Locator.CurrentMutable.Register(() => new DatabaseService());
         }
 
         public override void OnFrameworkInitializationCompleted()

@@ -4,8 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="168" d:DesignHeight="300"
              x:Class="måleusikkerhet.Views.DeviceCardView">
-    <Grid RowDefinitions="Auto,*">
-        <Label Content="{Binding Name}"></Label>
-        <Image Grid.Row="1" Source="{Binding Image}"></Image>
-    </Grid>
+    <Panel>
+            <ExperimentalAcrylicBorder IsHitTestVisible="False" CornerRadius="10">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial
+                        BackgroundSource="Digger"
+                        TintColor="Black"
+                        TintOpacity="0.65"
+                        MaterialOpacity="0.35" />
+                </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+            <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+                <Label Grid.Row="0" Content="{Binding Name}" Margin="10"></Label>
+                <CheckBox Grid.Row="1" HorizontalAlignment="Center">In Use</CheckBox>
+                <Image Grid.Row="2" Source="{Binding Image}" Width="128" Height="128" Margin="10"></Image>
+                <Menu Grid.Row="3" HorizontalAlignment="Stretch">
+                    <Menu.Items>
+                        <MenuItem Header="Edit" HorizontalAlignment="Stretch"></MenuItem>
+                        <MenuItem Header="Remove" HorizontalAlignment="Stretch"></MenuItem>
+                    </Menu.Items>
+                </Menu>
+            </Grid>
+        </Panel>
 </UserControl>

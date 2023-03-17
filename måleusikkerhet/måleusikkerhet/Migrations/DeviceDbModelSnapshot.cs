@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using måleusikkerhet.Database;
 
 #nullable disable
@@ -16,22 +15,21 @@ namespace måleusikkerhet.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
 
             modelBuilder.Entity("måleusikkerhet.Bases.Analog", b =>
                 {
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("ImageId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("MeasumentType")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RelativeRange")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Name");
 
@@ -43,16 +41,16 @@ namespace måleusikkerhet.Migrations
             modelBuilder.Entity("måleusikkerhet.Bases.Digital", b =>
                 {
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("ImageId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("MeasumentType")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<double?>("Resolution")
-                        .HasColumnType("double precision");
+                        .HasColumnType("REAL");
 
                     b.HasKey("Name");
 
@@ -64,13 +62,13 @@ namespace måleusikkerhet.Migrations
             modelBuilder.Entity("måleusikkerhet.Bases.Precise", b =>
                 {
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("ImageId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("MeasumentType")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Name");
 
@@ -79,47 +77,102 @@ namespace måleusikkerhet.Migrations
                     b.ToTable("PreciseDev");
                 });
 
-            modelBuilder.Entity("måleusikkerhet.Database.ImageDb", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("Id"));
-
-                    b.Property<byte[]>("ImageData")
-                        .HasColumnType("bytea");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ImageDb");
-                });
-
-            modelBuilder.Entity("måleusikkerhet.Infrastructure.DigitalAttributes", b =>
+            modelBuilder.Entity("måleusikkerhet.Database.AnalogAttributes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("AnalogName")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("DigitalName")
-                        .HasColumnType("text");
-
-                    b.Property<double>("Digits")
-                        .HasColumnType("double precision");
+                    b.Property<double>("Precision")
+                        .HasColumnType("REAL");
 
                     b.Property<double>("Range")
-                        .HasColumnType("double precision");
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnalogName");
+
+                    b.ToTable("AnalogAttributes");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Database.DigitalAttributes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DigitalName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Digits")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("Frequency")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("MeasurementType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Range")
+                        .HasColumnType("REAL");
 
                     b.Property<double>("RangeError")
-                        .HasColumnType("double precision");
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DigitalName");
 
                     b.ToTable("DigitalAttributes");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Database.ImageDb", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImageDb");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Database.PreciseAttributes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Frequency")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("MeasureError")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("MeasurementType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PreciseName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Range")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("RangeError")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PreciseName");
+
+                    b.ToTable("PreciseAttributes");
                 });
 
             modelBuilder.Entity("måleusikkerhet.Bases.Analog", b =>
@@ -149,14 +202,38 @@ namespace måleusikkerhet.Migrations
                     b.Navigation("Image");
                 });
 
-            modelBuilder.Entity("måleusikkerhet.Infrastructure.DigitalAttributes", b =>
+            modelBuilder.Entity("måleusikkerhet.Database.AnalogAttributes", b =>
+                {
+                    b.HasOne("måleusikkerhet.Bases.Analog", null)
+                        .WithMany("Ranges")
+                        .HasForeignKey("AnalogName");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Database.DigitalAttributes", b =>
                 {
                     b.HasOne("måleusikkerhet.Bases.Digital", null)
                         .WithMany("Ranges")
                         .HasForeignKey("DigitalName");
                 });
 
+            modelBuilder.Entity("måleusikkerhet.Database.PreciseAttributes", b =>
+                {
+                    b.HasOne("måleusikkerhet.Bases.Precise", null)
+                        .WithMany("Ranges")
+                        .HasForeignKey("PreciseName");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Bases.Analog", b =>
+                {
+                    b.Navigation("Ranges");
+                });
+
             modelBuilder.Entity("måleusikkerhet.Bases.Digital", b =>
+                {
+                    b.Navigation("Ranges");
+                });
+
+            modelBuilder.Entity("måleusikkerhet.Bases.Precise", b =>
                 {
                     b.Navigation("Ranges");
                 });

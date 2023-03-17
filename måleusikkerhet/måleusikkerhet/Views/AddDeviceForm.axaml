@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:måleusikkerhet.ViewModels"
+        xmlns:devices="clr-namespace:måleusikkerhet.Views.NewDevices"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="måleusikkerhet.Views.AddDeviceForm">
     <UserControl.DataContext>
@@ -15,21 +16,17 @@
         </Grid>
         <Button Click="LoadImage">Upload Image</Button>
         <Image Width="128" Height="128" Source="{Binding Image}"></Image>
-        <Viewbox>
-            
-        </Viewbox>
         <ComboBox Items="{Binding SupportedTypes}" SelectedIndex="0" SelectedItem="{Binding SelectedItem}"/>
-        <Grid RowDefinitions="*" ColumnDefinitions="Auto,*">
-            <Label Margin="10" VerticalContentAlignment="Center">Resolution</Label>
-            <NumericUpDown Grid.Column="1" Margin="10" Value="{Binding Resolution}" ShowButtonSpinner="False"></NumericUpDown>
-        </Grid>
-        <DataGrid Name="MyDataGrid" Items="{Binding AttributesList}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Max. Range" Binding="{Binding Range}"/>
-                <DataGridTextColumn Header="% from Range" Binding="{Binding RangeError}"/>
-                <DataGridTextColumn Header="Digits" Binding="{Binding Digits}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Click="Button_OnClick">Save</Button>
+    <TabControl>
+        <TabItem Header="Digital">
+            <devices:DigitalView></devices:DigitalView>
+        </TabItem>
+        <TabItem Header="Analog">
+            <devices:AnalogView></devices:AnalogView>
+        </TabItem>
+        <TabItem Header="Precise">
+            <devices:PreciseView></devices:PreciseView>
+        </TabItem>
+    </TabControl>
     </StackPanel>
 </UserControl>

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using måleusikkerhet.Bases;
 using måleusikkerhet.Database;
 using måleusikkerhet.Infrastructure;
+using måleusikkerhet.Services;
 using ReactiveUI;
+using Splat;
 using MemoryStream = System.IO.MemoryStream;
 
 namespace måleusikkerhet.ViewModels;
@@ -18,6 +20,7 @@ public class AddDeviceFormViewModel : ViewModelBase
 {
     private Bitmap? _image;
     private ObservableCollection<DigitalAttributes> _attributesList = new();
+    private readonly DatabaseService _database;
 
     public Bitmap? Image
     {
@@ -39,6 +42,7 @@ public class AddDeviceFormViewModel : ViewModelBase
 
     public AddDeviceFormViewModel()
     {
+        _database = Locator.Current.GetService<DatabaseService>();
         AttributesList.Add(new DigitalAttributes());
     }
     
@@ -63,8 +67,6 @@ public class AddDeviceFormViewModel : ViewModelBase
             Image = new ImageDb { ImageData = ms.ToArray() }, Resolution = Resolution, MeasumentType = SelectedItem,
             Ranges = AttributesList.OrderBy(x => x.Range).ToList()
         };
-        var db = new DeviceDb();
-        db.DigitalDev.Add(newDevice);
-        db.SaveChanges();
+        _database.AddDevice(newDevice);
     }
 }
