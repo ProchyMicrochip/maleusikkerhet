@@ -365,7 +365,7 @@ public class Precision : INumber<Precision>
 
     public static Precision Parse(ReadOnlySpan<char> s, NumberStyles style, IFormatProvider? provider)
     {
-        throw new NotImplementedException();
+        return Parse(s,provider);
     }
 
     public static Precision Parse(string s, NumberStyles style, IFormatProvider? provider)

@@ -35,4 +35,7 @@
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
 </Project>
