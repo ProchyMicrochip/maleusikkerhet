@@ -9,12 +9,12 @@ public class Digital : DevBase
 {
     
     public List<DigitalAttributes> Ranges { get; set; } = new();
-    public double? Resolution { get; set; } = double.NegativeInfinity;
+    public Precision Resolution { get; set; } = new(-1, 0);
 
-    public override double GetUncertanty(double value,double frequency = -1)
+    public override Precision GetUncertanty(Precision value,Precision frequency)
     {
         var current = Ranges.OrderBy(x => x.Range).First(x => x.Range > value && (x.Frequency == null || x.Frequency > frequency));
-        return value * current.RangeError + current.Digits * Resolution ?? double.NegativeInfinity;
+        return value * current.RangeError + current.Digits * Resolution;
     }
 
     public Digital(string name) : base(name)

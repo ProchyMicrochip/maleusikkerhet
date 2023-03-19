@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace måleusikkerhet.Views;
 
-public partial class AttributeListWindow : Window
+public partial class PreciseAttributeListWindow : Window
 {
-    public AttributeListWindow()
+    public PreciseAttributeListWindow()
     {
         InitializeComponent();
 #if DEBUG

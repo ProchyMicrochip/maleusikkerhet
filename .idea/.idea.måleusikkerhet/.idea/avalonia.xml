@@ -6,13 +6,17 @@
         <entry key="måleusikkerhet/måleusikkerhet/App.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/AddDeviceForm.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/Analog.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
+        <entry key="måleusikkerhet/måleusikkerhet/Views/AttributeListWindow.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/DeviceCardView.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/DeviceView.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/Digital.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/MainView.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/MainWindow.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/NewDevices/AnalogView.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
+        <entry key="måleusikkerhet/måleusikkerhet/Views/NewDevices/DigitalView.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
+        <entry key="måleusikkerhet/måleusikkerhet/Views/NewDevices/PreciseView.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/Precise.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
+        <entry key="måleusikkerhet/måleusikkerhet/Views/PreciseAttributeListWindow.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
       </map>
     </option>
   </component>

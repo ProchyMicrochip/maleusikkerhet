@@ -9,5 +9,9 @@
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <Style Selector="DataGridCell /template/ Border">
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
     </Application.Styles>
 </Application>

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using måleusikkerhet.Bases;
 using måleusikkerhet.Database;
@@ -27,16 +24,14 @@ public class AddDeviceFormViewModel : ViewModelBase
         get => _image;
         set => this.RaiseAndSetIfChanged(ref _image, value);
     }
-
-    public static List<string> SupportedTypes => Enum.GetNames(typeof(MeasurementType)).ToList();
-
+    
     public ObservableCollection<DigitalAttributes> AttributesList
     {
         get => _attributesList;
         set => this.RaiseAndSetIfChanged(ref _attributesList, value);
     }
 
-    public double Resolution { get; set; }
+    public Precision? Resolution { get; set; }
     public string? Name { get; set; }
     public MeasurementType SelectedItem { get; set; }
 
@@ -64,7 +59,7 @@ public class AddDeviceFormViewModel : ViewModelBase
         Image.Save(ms);
         var newDevice = new Digital(Name)
         {
-            Image = new ImageDb { ImageData = ms.ToArray() }, Resolution = Resolution, MeasumentType = SelectedItem,
+            Image = new ImageDb { ImageData = ms.ToArray() }, Resolution = Resolution ?? new Precision(-1,0), MeasumentType = SelectedItem,
             Ranges = AttributesList.OrderBy(x => x.Range).ToList()
         };
         _database.AddDevice(newDevice);

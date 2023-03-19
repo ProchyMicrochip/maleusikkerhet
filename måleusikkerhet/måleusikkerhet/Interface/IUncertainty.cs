@@ -1,6 +1,8 @@
-﻿namespace måleusikkerhet.Interface;
+﻿using måleusikkerhet.Infrastructure;
+
+namespace måleusikkerhet.Interface;
 
 public interface IUncertainty
 {
-    public double GetUncertanty(double value, double frequency = -1);
+    public Precision GetUncertanty(Precision value, Precision frequency);
 }

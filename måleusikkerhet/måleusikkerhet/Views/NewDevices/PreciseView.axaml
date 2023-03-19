@@ -8,4 +8,5 @@
     <UserControl.DataContext>
         <devices:PreciseViewModel></devices:PreciseViewModel>
     </UserControl.DataContext>
+    <Button Click="Button_OnClick">Open</Button>
 </UserControl>

@@ -9,9 +9,9 @@ public class DigitalAttributes
     public int Id { get; set; }
     
     public MeasurementType MeasurementType { get; set; }
-    public double Range { get; set; }
-    public double Digits { get; set; }
-    public double RangeError { get; set; }
+    public Precision Range { get; set; }
+    public Precision Digits { get; set; }
+    public Precision RangeError { get; set; }
     
-    public double? Frequency { get; set; }
+    public Precision? Frequency { get; set; }
 }

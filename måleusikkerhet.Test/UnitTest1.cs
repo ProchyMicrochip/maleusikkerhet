@@ -21,7 +21,7 @@ public class UnitTest1
     [InlineData("47m",0.047)]
     [InlineData("47k",47000)]
     [InlineData("47",47)]
-    public void NumberInputTest(string text, double result)
+    public void NumberInputTest(string? text, double result)
     {
         Assert.Equal(result, NumberParser.ParseNumber(text)!);
     }

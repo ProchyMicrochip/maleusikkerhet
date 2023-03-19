@@ -9,9 +9,9 @@ public class PreciseAttributes
     public int Id { get; set; }
     
     public MeasurementType MeasurementType { get; set; }
-    public double Range { get; set; }
-    public double MeasureError { get; set; }
-    public double RangeError { get; set; }
+    public Precision Range { get; set; }
+    public Precision MeasureError { get; set; }
+    public Precision RangeError { get; set; }
     
-    public double? Frequency { get; set; }
+    public Precision? Frequency { get; set; }
 }

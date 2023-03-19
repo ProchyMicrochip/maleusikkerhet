@@ -13,7 +13,7 @@ public abstract class DevBase : IUncertainty
     }
     [Key]
     public string Name { get; set; }
-    public abstract double GetUncertanty(double value, double frequency = -1);
+    public abstract Precision GetUncertanty(Precision value, Precision frequency);
     
     public ImageDb? Image { get; set; }
     
