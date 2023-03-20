@@ -15,11 +15,12 @@ public class PreciseNumberTest
     }
     [Theory]
     [InlineData("12m","12m")]
-    [InlineData("100m","0.1")]
-    [InlineData("12,5k","12.5k")]
-    [InlineData("100,15m","100.15m")]
-    [InlineData("12,5","12.5")]
+    [InlineData("100m","0,1")]
+    [InlineData("12,5k","12,5k")]
+    [InlineData("100,15m","100,15m")]
+    [InlineData("12,5","12,5")]
     [InlineData("15","15")]
+    [InlineData("12k","12k")]
     public void ToStringTest(string first, string expected)
     {
         Assert.Equal(expected,Precision.Parse(first,CultureInfo.CurrentCulture).ToString());

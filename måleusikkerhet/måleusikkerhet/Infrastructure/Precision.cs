@@ -56,10 +56,47 @@ public class Precision : INumber<Precision>
     {
         return ToString(null, null);
     }
-
+    //TODO: Rewrite this
     public string ToString(string? format, IFormatProvider? formatProvider)
     {
-        var suffix = Exponent switch
+        if (this == Zero) return "0";
+        if (Mantis / 1000 == 0)
+        {
+            switch (Exponent % 3)
+            {
+                case 0:
+                    return Mantis.ToString(formatProvider) + GetSuffix(Exponent);
+                case -1:
+                case 2:
+                {
+                    var mantis = Mantis.ToString(formatProvider);
+                    if (mantis.Length == 1)
+                        mantis = "0" + mantis;
+                    return mantis.Insert(mantis.Length - 1,
+                        CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) + GetSuffix(Exponent + 1);
+                }
+                case -2:
+                case 1:
+                {
+                    var mantis = Mantis.ToString(formatProvider);
+                    if (mantis.Length < 3)
+                    {
+                        return mantis + "0" + GetSuffix(Exponent-1);
+                    }
+                    return mantis.Insert(1, CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) +
+                           GetSuffix(Exponent + 2);
+                }
+            }
+        }
+
+        throw new NotImplementedException();
+        
+        
+
+    }
+
+    private static string GetSuffix(int exponent) =>
+        exponent switch
         {
             <= -9 => "n",
             <= -6 => "μ",
@@ -70,24 +107,6 @@ public class Precision : INumber<Precision>
             <= 9 => "G",
             _ => "Error"
         };
-        var number = Mantis.ToString();
-        int a;
-        if(Exponent <= 0)
-            a = int.Abs(Exponent % 3);
-        else
-        {
-            a = 3 - Exponent % 3;
-        }
-        if (number.Length-1 < a)
-            number = number.Insert(0, new string(Enumerable.Repeat('0', a - number.Length +1 ).ToArray()) );
-        number = number.Insert(number.Length - a,
-            (formatProvider as CultureInfo)?.NumberFormat.NumberDecimalSeparator ??
-            CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator);
-        number = number.TrimEnd(
-            ((formatProvider as CultureInfo)?.NumberFormat.NumberDecimalSeparator ??
-             CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)[0], '0');
-        return number + suffix;
-    }
 
     public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
     {
@@ -96,6 +115,7 @@ public class Precision : INumber<Precision>
 
     public static Precision Parse(string s, IFormatProvider? provider)
     {
+        if (string.IsNullOrEmpty(s)) return new Precision();
         var exponent = s[^1] switch
         {
             'M' => 6,
