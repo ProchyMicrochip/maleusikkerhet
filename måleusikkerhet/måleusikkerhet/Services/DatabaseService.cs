@@ -12,6 +12,7 @@ namespace måleusikkerhet.Services;
 public class DatabaseService
 {
     private readonly DeviceDb _db;
+    
 
     public IEnumerable<DeviceCardView> Devices => _db.AnalogDev.Include(x => x.Image).Select(x => x as DevBase).ToList()
         .Concat(_db.DigitalDev.Include(x => x.Image).Select(x => x as DevBase).ToList())

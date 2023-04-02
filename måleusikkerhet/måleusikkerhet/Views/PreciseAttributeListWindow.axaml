@@ -4,19 +4,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:måleusikkerhet.ViewModels"
         xmlns:infrastructure="clr-namespace:måleusikkerhet.Infrastructure"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="måleusikkerhet.Views.PreciseAttributeListWindow"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-        Title="AttributeListWindow">
-    <Window.DataContext>
+        Title="AttributeListWindow" x:Name="Window">
+    <!--Window.DataContext>
         <models:AttributeListWindowModel></models:AttributeListWindowModel>
-    </Window.DataContext>
-    <Window.Styles>
-    </Window.Styles>
+    </Window.DataContext!-->
     <Window.Resources>
-        <infrastructure:StringToNumberConverter x:Key="StringToNumberConverter"/>
+        <infrastructure:StringToNumberConverter x:Key="StringToNumberConverter" />
+        <infrastructure:ContentToAlignmentConverter x:Key="ToAlignmentConverter"></infrastructure:ContentToAlignmentConverter>
+        <infrastructure:StringToAtrNumberConverter x:Key="StringToAtrNumberConverter"></infrastructure:StringToAtrNumberConverter>
     </Window.Resources>
+    <Window.Styles>
+        <Style Selector="DataGridRow">
+            <Setter Property="Background" Value="DimGray"></Setter>
+        </Style>
+        <Style Selector="DataGridCell">
+            <Setter Property="HorizontalContentAlignment"
+                    Value="{Binding RelativeSource={RelativeSource Self}, Path=Content, Converter={StaticResource ToAlignmentConverter}}">
+            </Setter>
+        </Style>
+    </Window.Styles>
     <ExperimentalAcrylicBorder>
         <ExperimentalAcrylicBorder.Material>
             <ExperimentalAcrylicMaterial
@@ -25,13 +36,21 @@
                 TintOpacity="1"
                 MaterialOpacity="0.65" />
         </ExperimentalAcrylicBorder.Material>
-        <DataGrid Items="{Binding SmartCollection}" IsReadOnly="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserSortColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="False" Header="Range" Binding="{Binding Range, Converter={StaticResource StringToNumberConverter}}"></DataGridTextColumn>
-                <DataGridTextColumn IsReadOnly="False" Header="Frequency" Binding="{Binding Frequency, Converter={StaticResource StringToNumberConverter}}"></DataGridTextColumn>
-                <DataGridTextColumn IsReadOnly="False" Header="MeasureError" Binding="{Binding MeasureError, Converter={StaticResource StringToNumberConverter}}"></DataGridTextColumn>
-                <DataGridTextColumn IsReadOnly="False" Header="RangeError" Binding="{Binding RangeError, Converter={StaticResource StringToNumberConverter}}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid RowDefinitions="*,Auto">
+            <DataGrid SelectedIndex="{Binding Index}" Items="{Binding }" IsReadOnly="False"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserSortColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="False" Header="Range" Binding="{Binding Range, Converter={StaticResource StringToAtrNumberConverter}, ConverterParameter= _}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="False" Header="Frequency" Binding="{Binding Frequency, Converter={StaticResource StringToAtrNumberConverter}, ConverterParameter= Hz}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="False" Header="MeasureError" Binding="{Binding MeasureError, Converter={StaticResource StringToAtrNumberConverter}, ConverterParameter= %}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="False" Header="RangeError" Binding="{Binding RangeError, Converter={StaticResource StringToAtrNumberConverter}, ConverterParameter= %}">
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="1" Command="{Binding Click}">Save</Button>
+        </Grid>
     </ExperimentalAcrylicBorder>
 </Window>

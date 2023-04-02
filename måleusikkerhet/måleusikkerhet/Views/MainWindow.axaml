@@ -13,15 +13,5 @@
     <Window.DataContext>
         <vm:MainWindowViewModel></vm:MainWindowViewModel>
     </Window.DataContext>
-    <TabControl>
-        <TabItem Header="MainWindow">
-            <views:MainView></views:MainView>
-        </TabItem>
-        <TabItem Header="Add Device">
-            <views:AddDeviceForm></views:AddDeviceForm>
-        </TabItem>
-        <TabItem Header="Devices">
-            <views:DeviceView></views:DeviceView>
-        </TabItem>
-    </TabControl>
+    <views:MainView></views:MainView>
 </Window>

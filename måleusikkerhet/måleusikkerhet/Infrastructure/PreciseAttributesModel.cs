@@ -1,54 +1,56 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using DynamicData;
 
 namespace måleusikkerhet.Infrastructure;
 
-public class PreciseSmartCollection : ObservableCollection<PreciseAttributesModel>
+public class PreciseAttributesModel : INotifyPropertyChanged
 {
+    private Precision? _rangeError;
+    private Precision? _measureError;
+    private Precision? _range;
+    private Precision? _frequency;
+    private MeasurementType _type;
 
-    
-    private void Changed(object? o, PropertyChangedEventArgs a)
+    public PreciseAttributesModel(MeasurementType type, Precision? rangeError = null, Precision? measureError = null, Precision? range = null, Precision? frequency = null)
     {
-        if (Items.Any(x => x.Frequency == Precision.Zero && x.RangeError == Precision.Zero && x.MeasureError == Precision.Zero && x.Range == Precision.Zero)) return;
-        Add(new PreciseAttributesModel());
+        _rangeError = rangeError;
+        _measureError = measureError;
+        _range = range;
+        _frequency = frequency;
+        _type = type;
     }
-}
 
-public record struct PreciseAttributesModel(Precision? RangeError, Precision? MeasureError, Precision? Range, Precision? Frequency) : INotifyPropertyChanged
-{
-    private Precision? _rangeError = RangeError;
-    private Precision? _measureError = MeasureError;
-    private Precision? _range = Range;
-    private Precision? _frequency = Frequency;
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public Precision? RangeError
     {
-        readonly get => _rangeError;
+        get => _rangeError;
         set => SetField(ref _rangeError, value);
     }
 
     public Precision? MeasureError
     {
-        readonly get => _measureError;
+        get => _measureError;
         set => SetField(ref _measureError, value);
     }
 
     public Precision? Range
     {
-        readonly get => _range;
+        get => _range;
         set => SetField(ref _range, value);
     }
 
     public Precision? Frequency
     {
-        readonly get => _frequency;
+        get => _frequency;
         set => SetField(ref _frequency, value);
+    }
+
+    public MeasurementType Type
+    {
+        get => _type;
+        set => SetField(ref _type, value);
     }
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)

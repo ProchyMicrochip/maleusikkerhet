@@ -10,4 +10,5 @@ public class AnalogAttributes
     public int Id { get; set; }
     public Precision Precision { get; set; }
     public Precision Range { get; set; }
+    public MeasurementType MeasurementType { get; set; }
 }

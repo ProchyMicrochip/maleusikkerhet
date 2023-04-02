@@ -25,6 +25,7 @@ public class UnitTest1
     {
         Assert.Equal(result, NumberParser.ParseNumber(text)!);
     }
+    
 
     [Fact]
     public void NullOutput()

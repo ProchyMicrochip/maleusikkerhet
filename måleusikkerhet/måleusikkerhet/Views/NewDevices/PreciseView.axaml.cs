@@ -1,6 +1,8 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
+using måleusikkerhet.Infrastructure;
 
 namespace måleusikkerhet.Views.NewDevices;
 
@@ -21,4 +23,5 @@ public partial class PreciseView : UserControl
         var window = new PreciseAttributeListWindow();
         window.Show();
     }
+    
 }

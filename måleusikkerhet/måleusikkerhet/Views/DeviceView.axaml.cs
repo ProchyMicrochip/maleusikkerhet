@@ -5,7 +5,7 @@ using Splat;
 
 namespace måleusikkerhet.Views;
 
-public partial class DeviceView : UserControl
+public partial class DeviceView : Window
 {
     public DeviceView()
     {

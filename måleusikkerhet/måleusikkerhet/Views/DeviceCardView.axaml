@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="168" d:DesignHeight="300"
              x:Class="måleusikkerhet.Views.DeviceCardView">
-    <Panel>
+    <Panel Margin="10">
             <ExperimentalAcrylicBorder IsHitTestVisible="False" CornerRadius="10">
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial

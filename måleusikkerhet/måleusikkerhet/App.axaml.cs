@@ -1,9 +1,11 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using måleusikkerhet.Services;
 using måleusikkerhet.ViewModels;
 using måleusikkerhet.Views;
+using ReactiveUI;
 using Splat;
 
 namespace måleusikkerhet
@@ -13,7 +15,7 @@ namespace måleusikkerhet
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
-            Locator.CurrentMutable.Register(() => new DatabaseService());
+            ServiceRegistration.Register(Locator.CurrentMutable);
         }
 
         public override void OnFrameworkInitializationCompleted()
@@ -32,7 +34,6 @@ namespace måleusikkerhet
                     DataContext = new MainViewModel()
                 };
             }
-
             base.OnFrameworkInitializationCompleted();
         }
     }

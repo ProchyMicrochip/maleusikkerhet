@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
+using Avalonia.Media;
 using static System.Int64;
 
 namespace måleusikkerhet.Infrastructure;
@@ -26,7 +27,18 @@ public class Precision : INumber<Precision>
         Mantis = 0;
         Exponent = 0;
     }
-    
+
+    public Precision Sqrt2()
+    {
+        var tmp = Parse(Math.Round(Math.Sqrt(Mantis),6).ToString(CultureInfo.InvariantCulture),null);
+        return new Precision(tmp.Mantis, tmp.Exponent + Exponent/2);
+    }
+
+    public Precision Pow2()
+    {
+        return this * this;
+    }
+
     public int CompareTo(object? obj)
     {
         if (obj == null) throw new ArgumentNullException();
@@ -56,10 +68,10 @@ public class Precision : INumber<Precision>
     {
         return ToString(null, null);
     }
-    //TODO: Rewrite this
     public string ToString(string? format, IFormatProvider? formatProvider)
     {
         if (this == Zero) return "0";
+        var mantis = Mantis.ToString();
         if (Mantis / 1000 == 0)
         {
             switch (Exponent % 3)
@@ -69,7 +81,6 @@ public class Precision : INumber<Precision>
                 case -1:
                 case 2:
                 {
-                    var mantis = Mantis.ToString(formatProvider);
                     if (mantis.Length == 1)
                         mantis = "0" + mantis;
                     return mantis.Insert(mantis.Length - 1,
@@ -78,7 +89,6 @@ public class Precision : INumber<Precision>
                 case -2:
                 case 1:
                 {
-                    var mantis = Mantis.ToString(formatProvider);
                     if (mantis.Length < 3)
                     {
                         return mantis + "0" + GetSuffix(Exponent-1);
@@ -88,10 +98,14 @@ public class Precision : INumber<Precision>
                 }
             }
         }
+        var modulo = Exponent >= 0 ? Exponent % 3 : (Exponent % 3 + 3) % 3;
+        mantis += new string(Enumerable.Repeat('0', modulo).ToArray());
+        var digits = mantis.Length;
+        var add = digits / 3 +( digits % 3 == 0 ? -1 : 0);
 
-        throw new NotImplementedException();
-        
-        
+        return mantis.Insert(digits - add * 3, CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).TrimEnd('0') + GetSuffix(Exponent - modulo + add*3);
+
+
 
     }
 

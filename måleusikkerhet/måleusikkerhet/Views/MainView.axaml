@@ -7,10 +7,24 @@
              x:Class="måleusikkerhet.Views.MainView"
              Foreground="White"
              Background="#171C2C">
-    <Design.DataContext>
-        <viewModels:MainViewModel />
-    </Design.DataContext>
-    
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+    <UserControl.DataContext>
+        <viewModels:MainViewModel></viewModels:MainViewModel>
+    </UserControl.DataContext>
+    <Grid RowDefinitions="Auto,*">
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open..." />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+                <MenuItem Header="_Devices" Command="{Binding OpenDevices}" />
+                <MenuItem Header="Add">
+                    <MenuItem Header="_Digital" Command="{Binding NewDigitalDevice}"></MenuItem>
+                    <MenuItem Header="_Precise" Command="{Binding NewPreciseDevice}"></MenuItem>
+                    <MenuItem Header="_Analog" Command="{Binding NewAnalogDevice}"></MenuItem>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+    </Grid>
 </UserControl>

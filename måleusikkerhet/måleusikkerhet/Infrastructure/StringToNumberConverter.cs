@@ -1,18 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 
 namespace måleusikkerhet.Infrastructure;
 
-public class StringToNumberConverter : IValueConverter
+public class StringToNumberConverter : IMultiValueConverter
 {
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
     {
-        return (value as Precision)?.ToString();
-    }
-
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        return Precision.Parse(value as string ?? "0",CultureInfo.InvariantCulture);
+        if (values[0] is not Precision || values[1] is not string) return "";
+        return (values[0] as Precision)?.ToString() + values[1];
     }
 }

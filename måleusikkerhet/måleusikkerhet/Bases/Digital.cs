@@ -11,10 +11,10 @@ public class Digital : DevBase
     public List<DigitalAttributes> Ranges { get; set; } = new();
     public Precision Resolution { get; set; } = new(-1, 0);
 
-    public override Precision GetUncertanty(Precision value,Precision frequency)
+    public override Precision GetUncertanty(Precision value,Precision frequency, MeasurementType type)
     {
-        var current = Ranges.OrderBy(x => x.Range).First(x => x.Range > value && (x.Frequency == null || x.Frequency > frequency));
-        return value * current.RangeError + current.Digits * Resolution;
+        var current = Ranges.Where(x => x.MeasurementType == type).OrderBy(x => x.Range).First(x => x.Range > value && (x.Frequency == null || x.Frequency > frequency));
+        return (value * current.RangeError * new Precision(1,-2) + current.Digits * Resolution)/new Precision(1732050,-6);
     }
 
     public Digital(string name) : base(name)
