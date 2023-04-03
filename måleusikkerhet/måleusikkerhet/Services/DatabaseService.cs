@@ -80,12 +80,11 @@ public class DatabaseService
             }
             catch (Exception)
             {
-                /*return _db.AnalogDev.Include(x => x.Image)
+                return _db.AnalogDev.Include(x => x.Image)
                     .Include(x => x.Ranges)
                     .First(x => x.Name.Equals(name))
-                    .ToModel();*/
+                    .ToModel();
             }
         }
-        throw new NotImplementedException();
     }
 }

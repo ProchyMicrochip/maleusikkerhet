@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="måleusikkerhet/måleusikkerhet/App.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
+        <entry key="måleusikkerhet/måleusikkerhet/Views/AddAnalogDeviceForm.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/AddDeviceForm.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/AddDigitalDeviceForm.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/AddPreciseDeviceForm.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />

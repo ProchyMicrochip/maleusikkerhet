@@ -5,35 +5,33 @@
         xmlns:viewModels="clr-namespace:måleusikkerhet.ViewModels"
         xmlns:converters="clr-namespace:måleusikkerhet.Infrastructure"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="måleusikkerhet.Views.AddDigitalDeviceForm"
+        x:Class="måleusikkerhet.Views.AddAnalogDeviceForm"
         Title="Digital">
     <Window.DataContext>
-        <viewModels:AddDigitalDeviceFormViewModel />
+        <viewModels:AddAnalogDeviceFormViewModel />
     </Window.DataContext>
     <Window.Resources>
         <converters:StringToAtrNumberConverter x:Key="Converter"></converters:StringToAtrNumberConverter>
     </Window.Resources>
-    <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+    <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
         <Grid RowDefinitions="*" ColumnDefinitions="Auto,*" Margin="10">
             <Label Margin="10" VerticalContentAlignment="Center">Name</Label>
             <TextBox Grid.Column="1" Margin="10" Text="{Binding Model.Name}"></TextBox>
         </Grid>
         <Button Grid.Row="1" Grid.Column="0" Click="LoadImage" MinWidth="300">Upload Image</Button>
         <Image Grid.Row="2" Grid.Column="0" Width="300" Height="300" Source="{Binding Model.Image}"></Image>
-        <DataGrid Grid.Row="3" Grid.Column="0" Items="{Binding Types }" SelectedItem="{Binding Selected}">
+        <NumericUpDown Grid.Row="3" Grid.Column="0" Value="{Binding Model.RelativeRange}" Minimum="0" Maximum="1000" Increment="1"></NumericUpDown>
+        <DataGrid Grid.Row="4" Grid.Column="0" Items="{Binding Types }" SelectedItem="{Binding Selected}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Type" Binding="{Binding }"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" RowDefinitions="Auto,*,Auto" Margin="30,10,10,10">
             <Label Content="{Binding Selected}"/>
-            <DataGrid Grid.Row="1" Items="{Binding CurrentAttributes }">
+            <DataGrid Grid.Row="1" Items="{Binding CurrentAttributes  }">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Range" Binding="{Binding Range, Converter={StaticResource Converter}, ConverterParameter=_}" IsReadOnly="False"/>
-                    <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency, Converter={StaticResource Converter}, ConverterParameter=Hz}" IsReadOnly="False"/>
-                    <DataGridTextColumn Header="MeasureError" Binding="{Binding MeasureError, Converter={StaticResource Converter}, ConverterParameter=%}" IsReadOnly="False"/>
-                    <DataGridTextColumn Header="Digits" Binding="{Binding Digits, Converter={StaticResource Converter}, ConverterParameter=_}" IsReadOnly="False"/>
-                    <DataGridTextColumn Header="Resolution" Binding="{Binding Resolution, Converter={StaticResource Converter}, ConverterParameter=_}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Precision" Binding="{Binding Precision, Converter={StaticResource Converter}, ConverterParameter=Hz}" IsReadOnly="False"/>
                     <DataGridTemplateColumn Header="Delete">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -47,6 +45,6 @@
             </DataGrid>
             <Button Grid.Row="2" Command="{Binding Add}">Add</Button>
         </Grid>
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding SaveCommand}">Save</Button>
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding SaveCommand}">Save</Button>
     </Grid>
 </Window>

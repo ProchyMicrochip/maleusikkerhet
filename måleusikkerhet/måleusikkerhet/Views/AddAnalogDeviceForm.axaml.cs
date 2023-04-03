@@ -5,10 +5,10 @@ using måleusikkerhet.ViewModels;
 
 namespace måleusikkerhet.Views;
 
-public partial class AddDigitalDeviceForm : Window
+public partial class AddAnalogDeviceForm : Window
 {
-    private readonly AddDigitalDeviceFormViewModel _model = new();
-    public AddDigitalDeviceForm()
+    private readonly AddAnalogDeviceFormViewModel _model = new();
+    public AddAnalogDeviceForm()
     {
         InitializeComponent();
         DataContext = _model;

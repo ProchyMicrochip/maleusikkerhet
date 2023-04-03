@@ -11,6 +11,7 @@ namespace måleusikkerhet.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        private readonly CurrentDeviceService _currentDeviceService;
         public ReactiveCommand<Unit, Unit> NewDigitalDevice { get; }
         public ReactiveCommand<Unit, Unit> NewAnalogDevice { get; }
         public ReactiveCommand<Unit, Unit> NewPreciseDevice { get; }
@@ -18,6 +19,7 @@ namespace måleusikkerhet.ViewModels
 
         public MainViewModel()
         {
+            _currentDeviceService = Locator.Current.GetService<CurrentDeviceService>();
             NewDigitalDevice = ReactiveCommand.CreateFromTask(CreateNewDigital);
             NewAnalogDevice = ReactiveCommand.CreateFromTask(CreateNewAnalog);
             NewPreciseDevice = ReactiveCommand.CreateFromTask(CreateNewPrecise);
@@ -31,16 +33,19 @@ namespace måleusikkerhet.ViewModels
 
         private async Task CreateNewDigital()
         {
+            _currentDeviceService.DigitalDeviceModel = null;
             await Dispatcher.UIThread.InvokeAsync(() => new AddDigitalDeviceForm().Show());
         }
 
         private async Task CreateNewAnalog()
         {
-            throw new NotImplementedException();
+            _currentDeviceService.AnalogDeviceModel = null;
+            await Dispatcher.UIThread.InvokeAsync(() => new AddAnalogDeviceForm().Show());
         }
 
         private async Task CreateNewPrecise()
         {
+            _currentDeviceService.PreciseDeviceModel = null;
             await Dispatcher.UIThread.InvokeAsync(() => new AddPreciseDeviceForm().Show());
         }
     }

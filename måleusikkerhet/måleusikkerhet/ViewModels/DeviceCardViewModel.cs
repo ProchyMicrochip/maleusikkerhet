@@ -34,6 +34,14 @@ public class DeviceCardViewModel : ViewModelBase
                 _currentDevice.PreciseDeviceModel = preciseDeviceModel;
                 await Dispatcher.UIThread.InvokeAsync(new AddPreciseDeviceForm().Show);
                 break;
+            case DigitalDeviceModel digitalDeviceModel:
+                _currentDevice.DigitalDeviceModel = digitalDeviceModel;
+                await Dispatcher.UIThread.InvokeAsync(new AddDigitalDeviceForm().Show);
+                break;
+            case AnalogDeviceModel analogDeviceModel:
+                _currentDevice.AnalogDeviceModel = analogDeviceModel;
+                await Dispatcher.UIThread.InvokeAsync(new AddAnalogDeviceForm().Show);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(device));
         }
