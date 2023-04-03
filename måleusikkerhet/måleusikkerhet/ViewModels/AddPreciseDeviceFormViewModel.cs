@@ -18,9 +18,8 @@ using MemoryStream = System.IO.MemoryStream;
 
 namespace måleusikkerhet.ViewModels;
 
-public class AddPrecisedDeviceFormViewModel : ViewModelBase
+public class AddPreciseDeviceFormViewModel : ViewModelBase
 {
-    private ObservableCollection<DigitalAttributes> _attributesList = new();
     private readonly PreciseDeviceModel _model;
     private MeasurementType _selected;
     private ObservableCollection<PreciseAttributesModel> _currentAttributes;
@@ -68,10 +67,11 @@ public class AddPrecisedDeviceFormViewModel : ViewModelBase
     public ReactiveCommand<PreciseAttributesModel,Unit> Delete { get; }
     public ReactiveCommand<Unit,Unit> SaveCommand { get; }
 
-    public AddPrecisedDeviceFormViewModel()
+    public AddPreciseDeviceFormViewModel()
     {
+        var currentDevice = Locator.Current.GetService<CurrentDeviceService>().PreciseDeviceModel;
         _database = Locator.Current.GetService<DatabaseService>();
-        _model = new PreciseDeviceModel();
+        _model = currentDevice ?? new PreciseDeviceModel();
         _currentAttributes =
             new ObservableCollection<PreciseAttributesModel>(Model.AttributesModels.Where(x => x.Type == Selected));
         Add = ReactiveCommand.Create(AddAttribute);
@@ -102,7 +102,8 @@ public class AddPrecisedDeviceFormViewModel : ViewModelBase
     }
 
     public void Save()
-    {
+    { 
+        //Todo: Validate and Close
         SaveChanges();
         using var ms = new MemoryStream();
         Model.Image?.Save(ms);

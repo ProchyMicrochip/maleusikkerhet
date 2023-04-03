@@ -11,7 +11,8 @@ public class DigitalAttributes
     public MeasurementType MeasurementType { get; set; }
     public Precision Range { get; set; }
     public Precision Digits { get; set; }
-    public Precision RangeError { get; set; }
-    
+    public Precision MeasureError { get; set; }
     public Precision? Frequency { get; set; }
+    
+    public Precision Resolution { get; set; }
 }

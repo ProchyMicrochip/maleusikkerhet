@@ -5,6 +5,8 @@
       <map>
         <entry key="måleusikkerhet/måleusikkerhet/App.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/AddDeviceForm.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
+        <entry key="måleusikkerhet/måleusikkerhet/Views/AddDigitalDeviceForm.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
+        <entry key="måleusikkerhet/måleusikkerhet/Views/AddPreciseDeviceForm.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/Analog.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/AttributeListWindow.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />
         <entry key="måleusikkerhet/måleusikkerhet/Views/DeviceCardView.axaml" value="måleusikkerhet/måleusikkerhet.Desktop/måleusikkerhet.Desktop.csproj" />

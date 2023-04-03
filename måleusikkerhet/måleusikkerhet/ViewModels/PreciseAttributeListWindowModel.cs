@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive;
 using Avalonia.Controls.Templates;
 using måleusikkerhet.Infrastructure;
+using måleusikkerhet.Models;
 using måleusikkerhet.Services;
 using ReactiveUI;
 using Splat;

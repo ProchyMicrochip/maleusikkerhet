@@ -21,7 +21,7 @@
                 <Image Grid.Row="2" Source="{Binding Image}" Width="128" Height="128" Margin="10"></Image>
                 <Menu Grid.Row="3" HorizontalAlignment="Stretch">
                     <Menu.Items>
-                        <MenuItem Header="Edit" HorizontalAlignment="Stretch"></MenuItem>
+                        <MenuItem Header="Edit" HorizontalAlignment="Stretch" Command="{Binding Edit}"></MenuItem>
                         <MenuItem Header="Remove" HorizontalAlignment="Stretch"></MenuItem>
                     </Menu.Items>
                 </Menu>

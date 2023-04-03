@@ -2,8 +2,6 @@
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using måleusikkerhet.Infrastructure;
-using måleusikkerhet.Models;
 using måleusikkerhet.Services;
 using måleusikkerhet.Views;
 using ReactiveUI;
@@ -13,7 +11,6 @@ namespace måleusikkerhet.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly CurrentDeviceService _currentDevice;
         public ReactiveCommand<Unit, Unit> NewDigitalDevice { get; }
         public ReactiveCommand<Unit, Unit> NewAnalogDevice { get; }
         public ReactiveCommand<Unit, Unit> NewPreciseDevice { get; }
@@ -21,8 +18,6 @@ namespace måleusikkerhet.ViewModels
 
         public MainViewModel()
         {
-            _currentDevice = Locator.Current.GetService<CurrentDeviceService>();
-
             NewDigitalDevice = ReactiveCommand.CreateFromTask(CreateNewDigital);
             NewAnalogDevice = ReactiveCommand.CreateFromTask(CreateNewAnalog);
             NewPreciseDevice = ReactiveCommand.CreateFromTask(CreateNewPrecise);
@@ -31,12 +26,12 @@ namespace måleusikkerhet.ViewModels
 
         private async Task Devices()
         {
-            await Dispatcher.UIThread.InvokeAsync(() => (new DeviceView()).Show());
+            await Dispatcher.UIThread.InvokeAsync(() => new DeviceView().Show());
         }
 
         private async Task CreateNewDigital()
         {
-            throw new NotImplementedException();
+            await Dispatcher.UIThread.InvokeAsync(() => new AddDigitalDeviceForm().Show());
         }
 
         private async Task CreateNewAnalog()
@@ -46,7 +41,7 @@ namespace måleusikkerhet.ViewModels
 
         private async Task CreateNewPrecise()
         {
-            await Dispatcher.UIThread.InvokeAsync(() => (new AddPreciseDeviceForm()).Show());
+            await Dispatcher.UIThread.InvokeAsync(() => new AddPreciseDeviceForm().Show());
         }
     }
 }

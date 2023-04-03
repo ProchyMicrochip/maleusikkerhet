@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia.Media.Imaging;
 using måleusikkerhet.Bases;
 using måleusikkerhet.Database;
+using måleusikkerhet.Models;
 using måleusikkerhet.Views;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,17 +37,55 @@ public class DatabaseService
         switch (device)
         {
             case Analog analog:
+                var aRemove = _db.AnalogDev.FirstOrDefault(x => x.Name.Equals(analog.Name));
+                if (aRemove is not null)
+                    _db.AnalogDev.Remove(aRemove);
                 _db.AnalogDev.Add(analog);
                 break;
             case Digital digital:
+                var dRemove = _db.DigitalDev.FirstOrDefault(x => x.Name.Equals(digital.Name));
+                if (dRemove is not null)
+                    _db.DigitalDev.Remove(dRemove);
                 _db.DigitalDev.Add(digital);
                 break;
             case Precise precise:
+                var pRemove = _db.PreciseDev.FirstOrDefault(x => x.Name.Equals(precise.Name));
+                if (pRemove is not null)
+                    _db.PreciseDev.Remove(pRemove);
                 _db.PreciseDev.Add(precise);
                 break;
             default:
                 return;
         }
         _db.SaveChanges();
+    }
+
+    public ModelBase GetDeviceModel(string? name)
+    {
+        try
+        {
+            return _db.PreciseDev.Include(x => x.Image)
+                .Include(x => x.Ranges)
+                .First(x => x.Name.Equals(name))
+                .ToModel();
+        }
+        catch (Exception)
+        {
+            try
+            {
+                return _db.DigitalDev.Include(x => x.Image)
+                    .Include(x => x.Ranges)
+                    .First(x => x.Name.Equals(name))
+                    .ToModel();
+            }
+            catch (Exception)
+            {
+                /*return _db.AnalogDev.Include(x => x.Image)
+                    .Include(x => x.Ranges)
+                    .First(x => x.Name.Equals(name))
+                    .ToModel();*/
+            }
+        }
+        throw new NotImplementedException();
     }
 }

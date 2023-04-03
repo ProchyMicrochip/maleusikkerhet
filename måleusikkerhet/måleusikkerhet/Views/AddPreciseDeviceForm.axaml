@@ -1,0 +1,51 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:måleusikkerhet.ViewModels"
+        xmlns:converters="clr-namespace:måleusikkerhet.Infrastructure"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="måleusikkerhet.Views.AddPreciseDeviceForm"
+        Title="Precise">
+    <Window.DataContext>
+        <viewModels:AddPreciseDeviceFormViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:StringToAtrNumberConverter x:Key="Converter"></converters:StringToAtrNumberConverter>
+    </Window.Resources>
+    <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+        <Grid RowDefinitions="*" ColumnDefinitions="Auto,*" Margin="10">
+            <Label Margin="10" VerticalContentAlignment="Center">Name</Label>
+            <TextBox Grid.Column="1" Margin="10" Text="{Binding Model.Name}"></TextBox>
+        </Grid>
+        <Button Grid.Row="1" Grid.Column="0" Click="LoadImage" MinWidth="300">Upload Image</Button>
+        <Image Grid.Row="2" Grid.Column="0" Width="300" Height="300" Source="{Binding Model.Image}"></Image>
+        <DataGrid Grid.Row="3" Grid.Column="0" Items="{Binding Types }" SelectedItem="{Binding Selected}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Type" Binding="{Binding }"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" RowDefinitions="Auto,*,Auto" Margin="30,10,10,10">
+            <Label Content="{Binding Selected}"/>
+            <DataGrid Grid.Row="1" Items="{Binding CurrentAttributes}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Range" Binding="{Binding Range, Converter={StaticResource Converter}, ConverterParameter=_}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency, Converter={StaticResource Converter}, ConverterParameter=Hz}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Header="MeasureError" Binding="{Binding MeasureError, Converter={StaticResource Converter}, ConverterParameter=%}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Header="RangeError" Binding="{Binding RangeError, Converter={StaticResource Converter}, ConverterParameter=%}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                              Path=DataContext.Delete}"
+                                        CommandParameter="{Binding}">Delete</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="2" Command="{Binding Add}">Add</Button>
+        </Grid>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding SaveCommand}">Save</Button>
+    </Grid>
+</Window>

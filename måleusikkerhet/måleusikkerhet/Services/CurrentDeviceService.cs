@@ -7,7 +7,8 @@ namespace måleusikkerhet.Services;
 
 public class CurrentDeviceService
 {
-    public PreciseDeviceModel? Model { get; set; }
+    public PreciseDeviceModel? PreciseDeviceModel { get; set; }
+    public DigitalDeviceModel? DigitalDeviceModel { get; set; }
     public CurrentDeviceService()
     {
         //dummy

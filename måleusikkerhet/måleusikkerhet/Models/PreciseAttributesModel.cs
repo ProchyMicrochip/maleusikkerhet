@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using måleusikkerhet.Infrastructure;
 
-namespace måleusikkerhet.Infrastructure;
+namespace måleusikkerhet.Models;
 
 public class PreciseAttributesModel : INotifyPropertyChanged
 {
@@ -12,7 +13,8 @@ public class PreciseAttributesModel : INotifyPropertyChanged
     private Precision? _frequency;
     private MeasurementType _type;
 
-    public PreciseAttributesModel(MeasurementType type, Precision? rangeError = null, Precision? measureError = null, Precision? range = null, Precision? frequency = null)
+    public PreciseAttributesModel(MeasurementType type, Precision? rangeError = null, Precision? measureError = null,
+        Precision? range = null, Precision? frequency = null)
     {
         _rangeError = rangeError;
         _measureError = measureError;
@@ -20,8 +22,6 @@ public class PreciseAttributesModel : INotifyPropertyChanged
         _frequency = frequency;
         _type = type;
     }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     public Precision? RangeError
     {
@@ -53,16 +53,22 @@ public class PreciseAttributesModel : INotifyPropertyChanged
         set => SetField(ref _type, value);
     }
 
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    #region PropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, value)) return false;
         field = value;
         OnPropertyChanged(propertyName);
         return true;
     }
+
+    #endregion
 }

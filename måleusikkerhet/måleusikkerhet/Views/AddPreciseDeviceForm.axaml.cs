@@ -7,7 +7,7 @@ namespace måleusikkerhet.Views;
 
 public partial class AddPreciseDeviceForm : Window
 {
-    private readonly AddPrecisedDeviceFormViewModel _model = new();
+    private readonly AddPreciseDeviceFormViewModel _model = new();
     public AddPreciseDeviceForm()
     {
         InitializeComponent();

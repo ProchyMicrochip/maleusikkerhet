@@ -5,9 +5,10 @@
         xmlns:viewModels="clr-namespace:måleusikkerhet.ViewModels"
         xmlns:converters="clr-namespace:måleusikkerhet.Infrastructure"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="måleusikkerhet.Views.AddPreciseDeviceForm">
+        x:Class="måleusikkerhet.Views.AddDigitalDeviceForm"
+        Title="Digital">
     <Window.DataContext>
-        <viewModels:AddPrecisedDeviceFormViewModel />
+        <viewModels:AddDigitalDeviceFormViewModel />
     </Window.DataContext>
     <Window.Resources>
         <converters:StringToAtrNumberConverter x:Key="Converter"></converters:StringToAtrNumberConverter>
@@ -28,10 +29,11 @@
             <Label Content="{Binding Selected}"/>
             <DataGrid Grid.Row="1" Items="{Binding CurrentAttributes}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Range" Binding="{Binding Range, Converter={StaticResource Converter}, ConverterParameter=_}" IsReadOnly="False"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency, Converter={StaticResource Converter}, ConverterParameter=Hz}" IsReadOnly="False"></DataGridTextColumn>
-                    <DataGridTextColumn Header="MeasureError" Binding="{Binding MeasureError, Converter={StaticResource Converter}, ConverterParameter=%}" IsReadOnly="False"></DataGridTextColumn>
-                    <DataGridTextColumn Header="RangeError" Binding="{Binding RangeError, Converter={StaticResource Converter}, ConverterParameter=%}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Range" Binding="{Binding Range, Converter={StaticResource Converter}, ConverterParameter=_}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency, Converter={StaticResource Converter}, ConverterParameter=Hz}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="MeasureError" Binding="{Binding MeasureError, Converter={StaticResource Converter}, ConverterParameter=%}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Digits" Binding="{Binding Digits, Converter={StaticResource Converter}, ConverterParameter=D}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Resolution" Binding="{Binding Resolution, Converter={StaticResource Converter}, ConverterParameter=_}" IsReadOnly="False"/>
                     <DataGridTemplateColumn Header="Delete">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

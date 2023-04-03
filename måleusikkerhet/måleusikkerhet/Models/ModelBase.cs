@@ -1,11 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Avalonia.Media.Imaging;
 
 namespace måleusikkerhet.Models;
 
 public abstract class ModelBase: INotifyPropertyChanged
 {
+    private string _name = string.Empty;
+    private Bitmap? _image;
+    public string Name
+    {
+        get => _name;
+        set => SetField(ref _name, value);
+    }
+
+    public Bitmap? Image
+    {
+        get => _image;
+        set => SetField(ref _image, value);
+    }
     #region PropertyChanged
     
     public event PropertyChangedEventHandler? PropertyChanged;
