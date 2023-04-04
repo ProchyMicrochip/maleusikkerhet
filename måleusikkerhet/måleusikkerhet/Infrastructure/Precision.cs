@@ -9,8 +9,8 @@ namespace måleusikkerhet.Infrastructure;
 
 public class Precision : INumber<Precision>
 {
-    private long Mantis { get; }
-    private int Exponent { get; }
+    public long Mantis { get; }
+    public int Exponent { get; }
     public Precision(long mantis, int exponent)
     {
         while (mantis % 10 == 0 && mantis != 0)
@@ -30,7 +30,8 @@ public class Precision : INumber<Precision>
 
     public Precision Sqrt2()
     {
-        var tmp = Parse(Math.Round(Math.Sqrt(Mantis),6).ToString(CultureInfo.InvariantCulture),null);
+        var mantisSqrt = Math.Sqrt(Mantis);
+        var tmp = Parse(Math.Round(mantisSqrt,6).ToString(CultureInfo.InvariantCulture),null);
         return new Precision(tmp.Mantis, tmp.Exponent + Exponent/2);
     }
 
@@ -248,8 +249,8 @@ public class Precision : INumber<Precision>
 
     public static bool operator !=(Precision? left, Precision? right)
     {
-        if (left is null && right is null) return true;
-        if (left is null || right is null) return false;
+        if (left is null && right is null) return false;
+        if (left is null || right is null) return true;
         return !Equals(left, right);
     }
 
@@ -314,7 +315,14 @@ public class Precision : INumber<Precision>
     public static Precision MultiplicativeIdentity { get; } = new(1, 0);
     public static Precision operator *(Precision left, Precision right)
     {
-        return new Precision(left.Mantis * right.Mantis, left.Exponent + right.Exponent);
+        var tmp = (Int128)left.Mantis * right.Mantis;
+        var add = 0;
+        while ((Int128.IsPositive(tmp) && tmp > MaxValue)||(Int128.IsNegative(tmp) && tmp < MinValue))
+        {
+            tmp /= 10;
+            add++;
+        }
+        return new Precision(long.Parse(tmp.ToString()), left.Exponent + right.Exponent + add );
     }
 
     public static Precision operator -(Precision left, Precision right)

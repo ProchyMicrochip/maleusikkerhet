@@ -14,7 +14,6 @@ public partial class DeviceView : Window
         var panel = this.FindControl<WrapPanel>("WrapPanel")!;
         panel.Children.AddRange(service.Devices);
     }
-
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);

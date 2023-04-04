@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
@@ -15,11 +16,15 @@ public class DeviceCardViewModel : ViewModelBase
 {
     private readonly DatabaseService _database;
     private readonly CurrentDeviceService _currentDevice;
+    private bool _inUse;
+    private readonly ActiveDeviceService _activeDevices;
 
     public DeviceCardViewModel(string name, Bitmap image)
     {
         _database = Locator.Current.GetService<DatabaseService>();
         _currentDevice = Locator.Current.GetService<CurrentDeviceService>();
+        _activeDevices = Locator.Current.GetService<ActiveDeviceService>();
+        _inUse = _activeDevices.DevBases.FirstOrDefault(x => x.Name == name) != null;
         Name = name;
         Image = image;
         Edit = ReactiveCommand.CreateFromTask(EditTask);
@@ -47,14 +52,35 @@ public class DeviceCardViewModel : ViewModelBase
         }
     }
 
-    public DeviceCardViewModel()    {
+    public DeviceCardViewModel()
+    {
         _database = Locator.Current.GetService<DatabaseService>();
         _currentDevice = Locator.Current.GetService<CurrentDeviceService>();
+        _activeDevices = Locator.Current.GetService<ActiveDeviceService>();
         Edit = ReactiveCommand.CreateFromTask(EditTask);
     }
 
     public string? Name { get; set; }
     public Bitmap? Image { get; set; }
+
+    public bool InUse
+    {
+        get => _inUse;
+        set
+        {
+            if (value)
+            {
+                if (_activeDevices.DevBases.All(x => x.Name != Name))
+                    _activeDevices.DevBases.Add(_database.GetDeviceBase(Name));
+            }
+            else
+            {
+                if (_activeDevices.DevBases.Any(x => x.Name == Name))
+                    _activeDevices.DevBases.Remove(_activeDevices.DevBases.First(x => x.Name == Name));
+            }
+            this.RaiseAndSetIfChanged(ref _inUse, value);
+        }
+    }
 
     public ReactiveCommand<Unit, Unit> Edit { get; }
 }

@@ -87,4 +87,28 @@ public class DatabaseService
             }
         }
     }
+    public DevBase GetDeviceBase(string? name)
+    {
+        try
+        {
+            return _db.PreciseDev
+                .Include(x => x.Ranges)
+                .First(x => x.Name.Equals(name));
+        }
+        catch (Exception)
+        {
+            try
+            {
+                return _db.DigitalDev
+                    .Include(x => x.Ranges)
+                    .First(x => x.Name.Equals(name));
+            }
+            catch (Exception)
+            {
+                return _db.AnalogDev
+                    .Include(x => x.Ranges)
+                    .First(x => x.Name.Equals(name));
+            }
+        }
+    }
 }

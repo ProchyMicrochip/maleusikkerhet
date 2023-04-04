@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using måleusikkerhet.Database;
 using måleusikkerhet.Infrastructure;
 using måleusikkerhet.Interface;
@@ -13,8 +14,10 @@ public abstract class DevBase : IUncertainty
     }
     [Key]
     public string Name { get; set; }
-    public abstract Precision GetUncertanty(Precision value, Precision frequency, MeasurementType type);
-    
+    public abstract Precision GetUncertanty(Precision value, Precision? frequency, MeasurementType type);
+
+    public abstract ObservableCollection<MeasurementType> GetAvailableTypes();
+
     public ImageDb? Image { get; set; }
     
 }

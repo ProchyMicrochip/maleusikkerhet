@@ -8,5 +8,6 @@ public static class ServiceRegistration
     {
         locator.RegisterConstant(new DatabaseService());
         locator.RegisterConstant(new CurrentDeviceService());
+        locator.RegisterConstant(new ActiveDeviceService());
     }
 }

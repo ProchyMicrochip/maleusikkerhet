@@ -1,0 +1,34 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:infrastructure="clr-namespace:måleusikkerhet.Infrastructure"
+             xmlns:viewModels="clr-namespace:måleusikkerhet.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="måleusikkerhet.Views.DataTable" Margin="10">
+    <UserControl.Resources>
+        <infrastructure:StringToAtrNumberConverter x:Key="Converter"></infrastructure:StringToAtrNumberConverter>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewModels:DataTableViewModel/>
+    </UserControl.DataContext>
+    <StackPanel>
+        <Label Content="{Binding Name}"></Label>
+        <ComboBox Items="{Binding AvailableDevices}" SelectedItem="{Binding Selection}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox Items="{Binding AvailableMeasurements}" SelectedItem="{Binding Measurement}"></ComboBox>
+        <NumericUpDown Increment="1" Value="{Binding K}"/>
+        <DataGrid Items="{Binding }" DataContext="{Binding Data}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Value" Binding="{Binding Value, Converter={StaticResource Converter}, ConverterParameter=_}" IsReadOnly="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="Relative" Binding="{Binding Relative}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Answer" Binding="{Binding Answer}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>
